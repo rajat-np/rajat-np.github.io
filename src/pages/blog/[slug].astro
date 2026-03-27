@@ -1,0 +1,108 @@
+---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import Layout from "@layouts/Layout.astro";
+import RelatedPosts from "@components/RelatedPosts.astro";
+import ConnectSection from "@components/ConnectSection.astro";
+import { SITE } from "@/config";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+  return posts
+    .filter((post) => !post.data.draft)
+    .map((post) => ({
+      params: { slug: post.slug },
+      props: { post },
+    }));
+}
+
+interface Props {
+  post: CollectionEntry<"blog">;
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+const canonicalURL = `${SITE.baseUrl}/blog/${post.slug}/`;
+---
+
+<Layout
+  title={post.data.title}
+  description={post.data.description}
+  canonicalURL={canonicalURL}
+>
+  <article class="max-w-4xl mx-auto px-4 py-12">
+    <header class="mb-10 rounded-2xl border border-emerald-100/70 dark:border-slate-800 bg-white/90 dark:bg-slate-900/70 p-8 shadow-sm">
+      <p class="text-md uppercase tracking-[0.25em] text-emerald-600 font-semibold">Post</p>
+      <h1 class="text-2xl font-bold mt-3 mb-4 text-slate-900 dark:text-white">
+        {post.data.title}
+      </h1>
+      <p class="text-lg text-slate-700 dark:text-slate-300 mb-4">
+        {post.data.description}
+      </p>
+      <div class="text-sm text-slate-500 dark:text-slate-400">
+        {post.data.pubDate.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        })}
+      </div>
+    </header>
+
+    <div class="prose prose-lg prose-emerald dark:prose-invert max-w-none mb-12 prose-img:rounded-2xl prose-img:border prose-img:border-emerald-100/70 dark:prose-img:border-slate-800">
+      <Content />
+    </div>
+
+    <div class="mb-8 pb-8 border-b border-slate-200/80 dark:border-slate-800">
+      <p class="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">Share this post:</p>
+      <div class="flex flex-wrap gap-3">
+        <a
+          href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(post.data.title)}&url=${encodeURIComponent(`${SITE.baseUrl}/blog/${post.slug}/`)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-full transition-colors"
+          aria-label="Share on Twitter"
+        >
+          <span>𝕏</span>
+          Twitter
+        </a>
+        <a
+          href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`${SITE.baseUrl}/blog/${post.slug}/`)}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center gap-2 px-4 py-2 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-full transition-colors"
+          aria-label="Share on LinkedIn"
+        >
+          <span>in</span>
+          LinkedIn
+        </a>
+      </div>
+    </div>
+
+    {post.data.tags.length > 0 && (
+      <div class="mb-8 pb-8 border-b border-slate-200/80 dark:border-slate-800">
+        <p class="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3">Tags</p>
+        <div class="flex flex-wrap gap-2">
+          {post.data.tags.map((tag) => (
+            <a
+              href={`/blog/tag/${encodeURIComponent(tag)}`}
+              class="text-sm px-3 py-1.5 bg-emerald-50 dark:bg-slate-800 text-emerald-700 dark:text-slate-300 rounded-full hover:bg-emerald-100 dark:hover:bg-slate-700 transition-colors"
+            >
+              #{tag}
+            </a>
+          ))}
+        </div>
+      </div>
+    )}
+
+    <RelatedPosts currentPost={post} />
+
+    <div class="mt-12 pt-8 border-t border-slate-200/80 dark:border-slate-800">
+      <a href="/blog" class="text-emerald-600 dark:text-emerald-400 hover:underline">
+        ← Back to all posts
+      </a>
+    </div>
+  </article>
+
+  <ConnectSection />
+</Layout>

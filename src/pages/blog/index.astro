@@ -1,0 +1,63 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@layouts/Layout.astro";
+
+const allPosts = (await getCollection("blog")).filter((post) => !post.data.draft);
+const sortedPosts = allPosts.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+);
+---
+
+<Layout title="Blog">
+  <div class="max-w-4xl mx-auto px-4 py-12">
+    <div class="mb-10">
+      <p class="text-md uppercase tracking-[0.25em] text-emerald-600 font-semibold">Blog</p>
+      <h1 class="text-2xl font-bold mb-3 text-slate-900 dark:text-white">Notes from the build</h1>
+      <p class="text-lg text-slate-700 dark:text-slate-300">
+        Writing about backend systems, data infrastructure, and the small details that make products feel reliable.
+      </p>
+    </div>
+
+    {
+      sortedPosts.length === 0 ? (
+        <p class="text-lg text-slate-700 dark:text-slate-400">
+          No blog posts yet. Check back soon!
+        </p>
+      ) : (
+        <div class="space-y-6">
+          {sortedPosts.map((post) => (
+            <article class="rounded-2xl border border-emerald-100/80 dark:border-slate-800 bg-white/80 dark:bg-slate-900/70 p-6 shadow-sm">
+              <a href={`/blog/${post.slug}`} class="group">
+                <h2 class="text-2xl font-bold mb-2 text-slate-900 dark:text-white group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                  {post.data.title}
+                </h2>
+                <p class="text-slate-700 dark:text-slate-300 mb-3 leading-relaxed">
+                  {post.data.description}
+                </p>
+                <time class="text-sm text-slate-500 dark:text-slate-400">
+                  {post.data.pubDate.toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </time>
+                {post.data.tags.length > 0 && (
+                  <div class="flex flex-wrap gap-2 mt-3">
+                    {post.data.tags.map((tag) => (
+                      <a
+                        href={`/blog/tag/${encodeURIComponent(tag)}`}
+                        class="text-xs px-2.5 py-1 bg-emerald-50 dark:bg-slate-800 text-emerald-700 dark:text-slate-300 rounded-full hover:bg-emerald-100 dark:hover:bg-slate-700 transition-colors"
+                      >
+                        #{tag}
+                      </a>
+                    ))}
+                  </div>
+                )}
+              </a>
+            </article>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</Layout>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f8fafc" />
+      <stop offset="100%" stop-color="#e2e8f0" />
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="720" fill="url(#bg)" />
+  <rect x="80" y="80" width="1040" height="560" rx="24" fill="#ffffff" stroke="#e2e8f0" stroke-width="3" />
+
+  <text x="140" y="170" font-family="Inter, Arial, sans-serif" font-size="34" fill="#0f172a" font-weight="700">Ecological Impact Summary</text>
+  <text x="140" y="215" font-family="Inter, Arial, sans-serif" font-size="18" fill="#64748b">Product: Nutella (India) • Snapshot from Open Food Facts</text>
+
+  <rect x="140" y="260" width="300" height="90" rx="14" fill="#dcfce7" stroke="#86efac" stroke-width="2" />
+  <text x="170" y="315" font-family="Inter, Arial, sans-serif" font-size="22" fill="#166534" font-weight="700">Green-Score</text>
+  <text x="350" y="315" font-family="Inter, Arial, sans-serif" font-size="26" fill="#166534" font-weight="700">E</text>
+
+  <rect x="470" y="260" width="300" height="90" rx="14" fill="#fee2e2" stroke="#fecaca" stroke-width="2" />
+  <text x="500" y="315" font-family="Inter, Arial, sans-serif" font-size="22" fill="#991b1b" font-weight="700">Nutri-Score</text>
+  <text x="680" y="315" font-family="Inter, Arial, sans-serif" font-size="26" fill="#991b1b" font-weight="700">D</text>
+
+  <rect x="800" y="260" width="260" height="90" rx="14" fill="#e0f2fe" stroke="#bae6fd" stroke-width="2" />
+  <text x="830" y="315" font-family="Inter, Arial, sans-serif" font-size="22" fill="#0c4a6e" font-weight="700">NOVA</text>
+  <text x="930" y="315" font-family="Inter, Arial, sans-serif" font-size="26" fill="#0c4a6e" font-weight="700">4</text>
+
+  <rect x="140" y="380" width="920" height="210" rx="18" fill="#f8fafc" stroke="#e2e8f0" stroke-width="2" />
+  <text x="170" y="430" font-family="Inter, Arial, sans-serif" font-size="20" fill="#0f172a" font-weight="600">Impact Signals</text>
+  <text x="170" y="470" font-family="Inter, Arial, sans-serif" font-size="18" fill="#64748b">• Ingredient sourcing includes palm oil (supply-chain sensitivity)</text>
+  <text x="170" y="505" font-family="Inter, Arial, sans-serif" font-size="18" fill="#64748b">• Packaging mix requires improved recyclability signals</text>
+  <text x="170" y="540" font-family="Inter, Arial, sans-serif" font-size="18" fill="#64748b">• High processing level increases environmental footprint risk</text>
+</svg>

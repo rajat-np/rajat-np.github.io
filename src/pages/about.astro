@@ -1,0 +1,323 @@
+---
+import Layout from "@layouts/Layout.astro";
+import ContactForm from "@components/ContactForm";
+import {
+  languages,
+  frameworks,
+  databases,
+  cloud,
+  ides,
+  ai,
+} from "@data/skills";
+import { SOCIALS } from "@/config";
+---
+
+<Layout title="About">
+  <article class="max-w-4xl mx-auto px-4 py-12">
+    <div class="prose prose-lg dark:prose-invert max-w-none">
+      <section class="mb-12">
+        <p class="text-lg text-slate-500 dark:text-slate-400">
+          📍 Based in India
+        </p>
+        <p class="text-lg text-slate-700 dark:text-slate-300 mb-6">
+          I design and build web applications, backend systems and data systems.
+          My work spans across climate-tech, media and communicaton, saas, and
+          early-stage startups. Whether it’s building or scaling APIs, building
+          ETL workflows, or shipping a product end-to-end, I am most comfortable
+          as a generalist who can own architecture and delivery. I am passionate
+          about building software that has a positive impact on the world,
+          especially in the areas of climate resilience, sustainability, and
+          social good.
+        </p>
+        <h2 class="text-3xl font-bold mb-4 text-slate-900 dark:text-white">
+          What I do
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 my-8">
+          <div
+            class="h-full p-5 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700"
+          >
+            <div class="text-3xl mb-2">🧩</div>
+            <h3 class="font-bold text-lg mb-2 text-slate-900 dark:text-white">
+              Backend Systems
+            </h3>
+            <p class="text-slate-700 dark:text-slate-300">
+              Architecting APIs and services with Python, Node.js & Golang
+            </p>
+          </div>
+          <div
+            class="h-full p-5 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700"
+          >
+            <div class="text-3xl mb-2">📊</div>
+            <h3 class="font-bold text-lg mb-2 text-slate-900 dark:text-white">
+              Data Infrastructure
+            </h3>
+            <p class="text-slate-700 dark:text-slate-300">
+              Designing ETL workflows, data validation, and analytics pipelines
+            </p>
+          </div>
+          <div
+            class="h-full p-5 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700"
+          >
+            <div class="text-3xl mb-2">⚡</div>
+            <h3 class="font-bold text-lg mb-2 text-slate-900 dark:text-white">
+              Scale & Reliability
+            </h3>
+            <p class="text-slate-700 dark:text-slate-300">
+              Production-ready systems with observability, performance tuning,
+              and caching
+            </p>
+          </div>
+          <div
+            class="h-full p-5 bg-slate-50 dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700"
+          >
+            <div class="text-3xl mb-2">🌱</div>
+            <h3 class="font-bold text-lg mb-2 text-slate-900 dark:text-white">
+              Impact Focus
+            </h3>
+            <p class="text-slate-700 dark:text-slate-300">
+              Climate-tech, and energy & sustainability initiatives
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="mb-12">
+        <h2 class="text-3xl font-bold mb-4 text-slate-900 dark:text-white">
+          What I’m Exploring
+        </h2>
+        <ul class="space-y-3 text-lg text-slate-700 dark:text-slate-300">
+          <li class="flex items-start">
+            <span class="mr-3">🌾</span>Agroforestry tech and regenerative
+            supply chains
+          </li>
+          <li class="flex items-start">
+            <span class="mr-3">🧩</span> Distributed systems design, queues, and event-driven
+            architectures
+          </li>
+          <li class="flex items-start">
+            <span class="mr-3">🌿</span> Carbon accounting and MRV platforms
+          </li>
+          <li class="flex items-start">
+            <span class="mr-3">⚙️</span>Performance engineering, observability,
+            and reliability at scale
+          </li>
+        </ul>
+      </section>
+    </div>
+
+    <section class="mb-12">
+      <h2 class="text-3xl font-bold mb-4 text-slate-900 dark:text-white">
+        Tech I Work With
+      </h2>
+      <div class="space-y-4">
+        <div>
+          <h3 class="text-lg font-bold mb-2 text-slate-900 dark:text-white">
+            Languages
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            {
+              languages.map((badge) => (
+                <a
+                  href={badge.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                >
+                  {badge.name}
+                </a>
+              ))
+            }
+          </div>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold mb-2 text-slate-900 dark:text-white">
+            Frameworks & Tools
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            {
+              frameworks.map((badge) => (
+                <a
+                  href={badge.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                >
+                  {badge.name}
+                </a>
+              ))
+            }
+          </div>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold mb-2 text-slate-900 dark:text-white">
+            Databases
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            {
+              databases.map((badge) => (
+                <a
+                  href={badge.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                >
+                  {badge.name}
+                </a>
+              ))
+            }
+          </div>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold mb-2 text-slate-900 dark:text-white">
+            Cloud & Infra
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            {
+              cloud.map((badge) => (
+                <a
+                  href={badge.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                >
+                  {badge.name}
+                </a>
+              ))
+            }
+          </div>
+        </div>
+        <div>
+          <h3 class="text-lg font-bold mb-2 text-slate-900 dark:text-white">
+            Tooling
+          </h3>
+          <div class="flex flex-wrap gap-2">
+            {
+              ides.map((badge) => (
+                <a
+                  href={badge.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+                >
+                  {badge.name}
+                </a>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+      <div class="mt-6">
+        <h3 class="text-lg font-bold mb-2 text-slate-900 dark:text-white">
+          AI & LLMs
+        </h3>
+        <div class="flex flex-wrap gap-2">
+          {
+            ai.map((badge) => (
+              <a
+                href={badge.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-3 py-1 text-sm bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors"
+              >
+                {badge.name}
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+    <section class="mt-12">
+      <h2 class="text-3xl font-bold mb-4 text-slate-900 dark:text-white">
+        When I’m Not Coding
+      </h2>
+      <div class="space-y-4 text-lg text-slate-700 dark:text-slate-300">
+        <p>
+          I spend lot of time outdoors, especially in the mountains. Hiking and
+          landscape photography in the Indian Himalayas while occasionally slow
+          travelling. I play chess and on quest to become atleast 1600 rated
+          player this year. I also play electric guitar and a huge Space rock
+          fan. See some of my work on <a
+            href={SOCIALS.flickr}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-emerald-600 dark:text-emerald-400 hover:underline"
+            >Flickr</a
+          >.
+        </p>
+      </div>
+    </section>
+  </article>
+</Layout>
+
+<div
+  class="mt-12 bg-white/90 dark:bg-slate-950/90 border-t border-slate-200/70 dark:border-slate-800 shadow-lg"
+>
+  <div class="max-w-4xl mx-auto px-4 py-6">
+    <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
+      <ContactForm client:load />
+
+      <div class="flex items-center gap-4">
+        <div class="h-8 w-px bg-slate-300 dark:bg-slate-700 hidden sm:block">
+        </div>
+        <p class="text-slate-700 dark:text-slate-400 text-sm hidden sm:block">
+          or find me on
+        </p>
+      </div>
+
+      <div class="flex gap-4">
+        <a
+          href={SOCIALS.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="transition-opacity hover:opacity-70"
+          aria-label="GitHub"
+        >
+          <img
+            src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/github.svg"
+            alt="GitHub"
+            class="w-6 h-6 opacity-60 dark:invert"
+          />
+        </a>
+        <a
+          href={SOCIALS.linkedin}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="transition-opacity hover:opacity-70"
+          aria-label="LinkedIn"
+        >
+          <img
+            src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/linkedin.svg"
+            alt="LinkedIn"
+            class="w-6 h-6 opacity-60 dark:invert"
+          />
+        </a>
+        <a
+          href={SOCIALS.stackoverflow}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="transition-opacity hover:opacity-70"
+          aria-label="Stack Overflow"
+        >
+          <img
+            src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/stackoverflow.svg"
+            alt="Stack Overflow"
+            class="w-6 h-6 opacity-60 dark:invert"
+          />
+        </a>
+        <a
+          href={SOCIALS.flickr}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="transition-opacity hover:opacity-70"
+          aria-label="Flickr"
+        >
+          <img
+            src="https://cdn.jsdelivr.net/npm/simple-icons@3.0.1/icons/flickr.svg"
+            alt="Flickr"
+            class="w-6 h-6 opacity-60 dark:invert"
+          />
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

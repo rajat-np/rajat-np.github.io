@@ -1,0 +1,68 @@
+---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
+interface Props {
+  currentPost: CollectionEntry<"blog">;
+}
+
+const { currentPost } = Astro.props;
+
+// Get all published posts
+const allPosts = await getCollection("blog");
+const publishedPosts = allPosts.filter((post) => !post.data.draft);
+
+// Calculate related posts based on shared tags
+const relatedPosts = publishedPosts
+  .filter((post) => post.slug !== currentPost.slug)
+  .map((post) => {
+    const sharedTags = post.data.tags.filter((tag) =>
+      currentPost.data.tags.includes(tag)
+    );
+    return {
+      post,
+      score: sharedTags.length,
+      sharedTags,
+    };
+  })
+  .filter((item) => item.score > 0)
+  .sort((a, b) => b.score - a.score)
+  .slice(0, 3);
+---
+{relatedPosts.length === 0 && (
+  <p class="text-left text-slate-700 dark:text-slate-300 mt-12">
+    No related posts found.
+  </p>
+)}
+{relatedPosts.length > 0 && (
+  <section class="mt-12 pt-8 border-t border-slate-200/80 dark:border-slate-800">
+    <h2 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">
+      Related Posts
+    </h2>
+    <div class="space-y-4">
+      {relatedPosts.map(({ post, sharedTags }) => (
+        <a
+          href={`/blog/${post.slug}`}
+          class="block p-5 rounded-2xl bg-white/80 dark:bg-slate-900/70 border border-emerald-100/70 dark:border-slate-800 hover:bg-emerald-50/40 dark:hover:bg-slate-800 transition-colors"
+        >
+          <h3 class="text-lg font-semibold mb-2 text-slate-900 dark:text-white">
+            {post.data.title}
+          </h3>
+          <p class="text-slate-700 dark:text-slate-300 text-sm mb-2">
+            {post.data.description}
+          </p>
+          <div class="flex gap-2 flex-wrap">
+            {sharedTags.map((tag) => (
+              <a
+                href={`/blog/tag/${encodeURIComponent(tag)}`}
+                class="text-xs px-2.5 py-1 bg-emerald-50 dark:bg-slate-800 text-emerald-700 dark:text-slate-300 rounded-full hover:bg-emerald-100 dark:hover:bg-slate-700 transition-colors"
+              >
+                #{tag}
+              </a>
+            ))}
+          </div>
+        </a>
+      ))}
+    </div>
+  </section>
+)}

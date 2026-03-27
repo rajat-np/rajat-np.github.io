@@ -1,0 +1,141 @@
+---
+import { SITE, NAV_LINKS, COPYRIGHT } from "@/config";
+import ThemeToggle from "@components/ThemeToggle";
+
+interface Props {
+  title?: string;
+  description?: string;
+  canonicalURL?: string;
+  bodyClass?: string;
+  headerClass?: string;
+  mainClass?: string;
+  footerClass?: string;
+}
+
+const {
+  title = SITE.title,
+  description = SITE.description,
+  canonicalURL,
+  bodyClass = "",
+  headerClass = "",
+  mainClass = "",
+  footerClass = "",
+} = Astro.props;
+const pageTitle = title === SITE.title ? title : `${title} | ${SITE.title}`;
+const currentPath = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === "/" ? currentPath === "/" : currentPath.startsWith(href);
+
+// Generate canonical URL: use provided canonicalURL or construct from current URL
+const canonical =
+  canonicalURL || new URL(Astro.url.pathname, SITE.baseUrl).href;
+---
+
+<!doctype html>
+<html lang={SITE.locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="author" content={SITE.author} />
+    <meta
+      name="google-site-verification"
+      content="twVFs_dUxCyldlt-Sif72GezMsXbI0wKJEVTBJ1A22g"
+    />
+
+    <link rel="canonical" href={canonical} />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <title>{pageTitle}</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script is:inline>
+      // Initialize theme before page renders to prevent flash
+      (function () {
+        const theme = localStorage.getItem("theme") || "light";
+        if (theme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+      })();
+    </script>
+  </head>
+  <body
+    class={`bg-emerald-50 text-slate-800 dark:bg-[#0b1210] dark:text-slate-200 bg-[radial-gradient(900px_circle_at_15%_30%,rgba(16,185,129,0.10),transparent_60%),radial-gradient(1100px_circle_at_85%_35%,rgba(34,197,94,0.10),transparent_55%)] dark:bg-[radial-gradient(900px_circle_at_15%_30%,rgba(16,185,129,0.10),transparent_60%),radial-gradient(1100px_circle_at_85%_35%,rgba(34,197,94,0.12),transparent_55%)] font-[Inter] ${bodyClass}`}
+  >
+    <div class="min-h-screen flex flex-col">
+      <header
+        class={`py-3 px-4 border-b border-slate-200/70 dark:border-slate-800 ${headerClass}`}
+      >
+        <nav class="max-w-4xl mx-auto flex justify-between items-center">
+          <a
+            href="/"
+            class="inline-flex items-center justify-center text-slate-900 dark:text-white hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors"
+            aria-label="Home"
+          >
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              class="w-7 h-7 drop-shadow-sm"
+              fill="currentColor"
+            >
+              <path
+                d="M3 11.25L12 4l9 7.25V20a1 1 0 0 1-1 1h-5.5a1 1 0 0 1-1-1v-5.5h-3V20a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"
+              ></path>
+            </svg>
+          </a>
+          <div class="flex items-center gap-6">
+            <ul class="flex gap-6 items-center">
+              {
+                NAV_LINKS.map(({ label, href }) => (
+                  <li>
+                    <a
+                      href={href}
+                      class={`inline-flex items-center px-2 py-1 rounded-md text-slate-700 dark:text-slate-300 hover:text-emerald-600 dark:hover:text-emerald-400 transition-colors ${isActive(href) ? "text-emerald-700 dark:text-emerald-300 font-semibold bg-emerald-50 dark:bg-emerald-950/40 ring-1 ring-emerald-200/70 dark:ring-emerald-700/40" : ""}`}
+                      aria-current={isActive(href) ? "page" : undefined}
+                    >
+                      {label}
+                    </a>
+                  </li>
+                ))
+              }
+            </ul>
+            <ThemeToggle client:load />
+          </div>
+        </nav>
+      </header>
+
+      <main class={`flex-1 ${mainClass}`}>
+        <slot />
+      </main>
+
+      <footer
+        class={`py-6 px-4 border-t border-slate-200/70 dark:border-slate-800 ${footerClass}`}
+      >
+        <div
+          class="max-w-4xl mx-auto text-center text-slate-600 dark:text-slate-400 text-sm"
+        >
+          <p class="mt-2">
+            {COPYRIGHT.notice}
+          </p>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
+
+<style is:global>
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
+</style>

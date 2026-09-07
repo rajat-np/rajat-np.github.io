@@ -6,16 +6,6 @@
  * See LICENSE and LICENSE-CONTENT files for full license information
  */
 
-const START_YEAR = 2025;
-const CURRENT_YEAR = new Date().getFullYear();
-
-export const COPYRIGHT = {
-  startYear: START_YEAR,
-  currentYear: CURRENT_YEAR,
-  displayYear: START_YEAR === CURRENT_YEAR ? `${START_YEAR}` : `${START_YEAR}-${CURRENT_YEAR}`,
-  notice: `© ${START_YEAR === CURRENT_YEAR ? START_YEAR : `${START_YEAR}-${CURRENT_YEAR}`} Rajat Soni. All rights reserved.`,
-};
-
 export const SITE = {
   title: "Rajat Soni",
   description: "Software engineer building backend systems, APIs, and data pipelines with experience in SaaS startups and climate tech.",

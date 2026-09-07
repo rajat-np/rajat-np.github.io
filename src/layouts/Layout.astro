@@ -1,5 +1,5 @@
 ---
-import { SITE, NAV_LINKS, COPYRIGHT } from "@/config";
+import { SITE, NAV_LINKS } from "@/config";
 import ThemeToggle from "@components/ThemeToggle";
 
 interface Props {
@@ -118,18 +118,6 @@ const canonical =
       <main class={`flex-1 ${mainClass}`}>
         <slot />
       </main>
-
-      <footer
-        class={`py-6 px-4 border-t border-slate-200/70 dark:border-slate-800 ${footerClass}`}
-      >
-        <div
-          class="max-w-4xl mx-auto text-center text-slate-600 dark:text-slate-400 text-sm"
-        >
-          <p class="mt-2">
-            {COPYRIGHT.notice}
-          </p>
-        </div>
-      </footer>
     </div>
   </body>
 </html>
